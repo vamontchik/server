@@ -90,6 +90,7 @@ namespace ExitPath.Server
             {
                 builder.WithOrigins(this.config.AllowedOrigins);
                 builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
                 builder.AllowCredentials();
             });
         }

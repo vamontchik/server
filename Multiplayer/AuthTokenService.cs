@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 
 namespace ExitPath.Server.Multiplayer
 {
@@ -26,10 +27,11 @@ namespace ExitPath.Server.Multiplayer
                 SigningCredentials = this.credentials,
                 Issuer = this.config.Authority,
                 Audience = this.config.Authority,
+                Expires = System.DateTime.UtcNow.AddHours(24),
                 Claims = new Dictionary<string, object>
                 {
                     { "sub", data.DisplayName },
-                    { "player", data }
+                    { "player", JsonSerializer.Serialize(data) }
                 }
             };
             return tokenHandler.CreateEncodedJwt(desc);
