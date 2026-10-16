@@ -16,6 +16,7 @@ namespace ExitPath.Server.Controllers.Multiplayer
             this.authToken = authToken;
         }
 
+        [HttpPost]
         public IActionResult Handle([FromBody] AuthRequest request)
         {
             if (request.Version < MultiplayerHub.ProtocolVersion)
